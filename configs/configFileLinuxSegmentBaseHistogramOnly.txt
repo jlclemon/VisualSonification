@@ -1,0 +1,132 @@
+#The camera calibration file to load (full path)
+-calibrationFile
+#logStereoCameraHomeVGA.yml
+#logStereoCameraWork.yml
+logStereoCameraHome.yml
+#minStereoCameraVGA.yml
+
+#this defines the input mode, stereo or depth camera
+-inputMode
+#stereo
+#depth
+segment
+
+#this defines the input type, a stream, image list or a video file
+-inputType
+imageList
+#stream
+#imageList
+#videoFile
+
+-inputSize
+qvga
+
+# The left Camera Id for a stereo setup, In general this is the main RGB camrea
+-leftCamera
+1
+#1
+#0
+
+
+# The right Camera Id for a stereo setup
+-rightCamera
+2
+#0
+#1
+
+
+# The depth Camera Id for a mono and depth camera setup
+#-depthCamera
+#2
+
+#The max depth that will be considered relevant.  Units are in the calibration units (cm or mm typically)
+-maxDepth
+300
+
+
+#This is the gradient for a depth differential  Units are in the calibration units (cm or mm typically)
+-depthDiffThreshold
+10
+
+
+#Feature Extraction, feature localization technique
+-local
+#sift
+sift_vl
+#surf
+#fast
+#hog
+#grid
+
+#Feature Extraction, feature descriptor technique
+-desc
+#sift
+sift_vl
+#surf
+#brief
+#hog
+
+
+
+#A list of images to use as input (full path), once the list is exhausted, the application quits
+#-imageList
+#C:/Users/jlclemon/Documents/VisionData/imageList.txt
+
+#If an image list is used, a directory prepend for the images in the list
+#-imageListBaseDir
+#C:/Users/jlclemon/Documents/VisionData/
+
+#If a video is used as input instead, this is where the name is declared (full path)
+#-videoFile
+#:/Users/jlclemon/Documents/VisionData/testVideo
+
+#Another file to load and use the values from
+#-configFile
+#Overriding config file
+
+#-dictionaryFile
+#/home/jlclemon/Documents/visionData/visionData/Dictionaries/dictionaryFile_CarPerson_10.yml
+#C:/Users/jlclemon/Documents/VisionData/SurfLocalSurfDesc/ProbBookAloneWithImages/Dictionary/dictionaryFile_200.yml
+
+-no-pauseMode
+
+-no-pauseAtStart
+
+-rightImageListBaseDir
+/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
+
+#-leftImageListBaseDir
+#/media/0459867d-39ad-440d-86e0-2c0596eed1e8/home/jlclemon/GSRC_Dataset/3Ddataset/bicycle/bicycle_1/
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
+
+-rightImageList
+/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/rightImageList.txt
+
+#-leftImageList
+#/media/0459867d-39ad-440d-86e0-2c0596eed1e8/home/jlclemon/GSRC_Dataset/3Ddataset/bicycle/bicycle_1/imageListTest.txt
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/leftImageList.txt
+
+#-sonificationTechnique
+#pure_sine
+#pure_sine_linear_transition
+#fundamental_with_2_harmonics
+#convolution
+
+-segmentUsingExternalMask
+
+-placeHistogramInBuffers
+
+-no-placeAudioInBuffers
+
+-no-useOpenAlToPlay
+
+-no-saveRegionAudioFiles
+
+-saveRegionHistogramFiles
+
+#-regionAudioFileOutputDir
+#testing/
+
+#-regionHistogramFileOutputDir
+#testing/
+

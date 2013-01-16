@@ -1,0 +1,1098 @@
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,40000, Clocks
+Capture Images,60000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,10000, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,370000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,450000, Clocks
+
+Total Work Time,1400000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,50000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,380000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,500000, Clocks
+
+Total Work Time,1420000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,390000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,500000, Clocks
+
+Total Work Time,1420000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,420000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,210000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,530000, Clocks
+
+Total Work Time,1510000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,390000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,500000, Clocks
+
+Total Work Time,1430000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,390000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,190000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,510000, Clocks
+
+Total Work Time,1430000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,410000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,200000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,510000, Clocks
+
+Total Work Time,1470000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,50000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,350000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,6030000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6490000, Clocks
+
+Total Work Time,13390000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,40000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,350000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,6060000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6510000, Clocks
+
+Total Work Time,13450000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,340000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,6090000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6550000, Clocks
+
+Total Work Time,13490000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,360000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,6020000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,160000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6480000, Clocks
+
+Total Work Time,13390000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,40000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,350000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,6140000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6590000, Clocks
+
+Total Work Time,13610000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,60000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,3020000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,3390000, Clocks
+
+Total Work Time,7110000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,50000, Clocks
+General Timing 3,0, Clocks
+All Processing,330000, Clocks
+
+Total Work Time,990000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,60000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,330000, Clocks
+
+Total Work Time,980000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,240000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,990000, Clocks
+General Timing 0,180000, Clocks
+General Timing 1,60000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,1320000, Clocks
+
+Total Work Time,2940000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,1020000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,50000, Clocks
+General Timing 3,0, Clocks
+All Processing,1350000, Clocks
+
+Total Work Time,3010000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,5990000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,6360000, Clocks
+
+Total Work Time,13040000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,330000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,9090000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,9520000, Clocks
+
+Total Work Time,19420000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,390000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,40000, Clocks
+Audio Generation,8020000, Clocks
+General Timing 0,230000, Clocks
+General Timing 1,160000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,8520000, Clocks
+
+Total Work Time,17510000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,370000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2000000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,160000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,2480000, Clocks
+
+Total Work Time,5380000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,340000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,5080000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,5530000, Clocks
+
+Total Work Time,11460000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,340000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,8020000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,8460000, Clocks
+
+Total Work Time,17320000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,340000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,5010000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,130000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,5450000, Clocks
+
+Total Work Time,11300000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,370000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,40000, Clocks
+Audio Generation,9090000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,160000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,9590000, Clocks
+
+Total Work Time,19620000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,330000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,8060000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,130000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,8500000, Clocks
+
+Total Work Time,17380000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,350000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,10120000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,10570000, Clocks
+
+Total Work Time,21550000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,400000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,30000, Clocks
+Audio Generation,7070000, Clocks
+General Timing 0,220000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,7590000, Clocks
+
+Total Work Time,15630000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,360000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,4000000, Clocks
+General Timing 0,230000, Clocks
+General Timing 1,130000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,4460000, Clocks
+
+Total Work Time,9340000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,340000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,6010000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,140000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,6460000, Clocks
+
+Total Work Time,13310000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,380000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,4030000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,180000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,4500000, Clocks
+
+Total Work Time,9430000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,350000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,40000, Clocks
+Audio Generation,7110000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,7570000, Clocks
+
+Total Work Time,15560000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,250000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,1990000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,60000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2320000, Clocks
+
+Total Work Time,4920000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,3000000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,3330000, Clocks
+
+Total Work Time,7000000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2010000, Clocks
+General Timing 0,180000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2350000, Clocks
+
+Total Work Time,5000000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2000000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2340000, Clocks
+
+Total Work Time,4990000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,3000000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,3340000, Clocks
+
+Total Work Time,7020000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,1990000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2330000, Clocks
+
+Total Work Time,4990000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,280000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2000000, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2340000, Clocks
+
+Total Work Time,5030000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2020000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2360000, Clocks
+
+Total Work Time,5060000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,3070000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,3430000, Clocks
+
+Total Work Time,7170000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,4010000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,4360000, Clocks
+
+Total Work Time,9060000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,20000, Clocks
+Audio Generation,2990000, Clocks
+General Timing 0,180000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,3330000, Clocks
+
+Total Work Time,6990000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,270000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2030000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2350000, Clocks
+
+Total Work Time,5050000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,0, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,4060000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,4360000, Clocks
+
+Total Work Time,9050000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,3030000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,3330000, Clocks
+
+Total Work Time,7010000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,300000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,10000, Clocks
+Audio Generation,2010000, Clocks
+General Timing 0,200000, Clocks
+General Timing 1,100000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,2340000, Clocks
+
+Total Work Time,5060000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,2000000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,2300000, Clocks
+
+Total Work Time,4950000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,4040000, Clocks
+General Timing 0,180000, Clocks
+General Timing 1,80000, Clocks
+General Timing 2,60000, Clocks
+General Timing 3,0, Clocks
+All Processing,4340000, Clocks
+
+Total Work Time,9000000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,260000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,2020000, Clocks
+General Timing 0,190000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,70000, Clocks
+General Timing 3,0, Clocks
+All Processing,2300000, Clocks
+
+Total Work Time,4960000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,40000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,280000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,450000, Clocks
+
+Total Work Time,1150000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,410000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,300000, Clocks
+General Timing 1,110000, Clocks
+General Timing 2,110000, Clocks
+General Timing 3,0, Clocks
+All Processing,480000, Clocks
+
+Total Work Time,1470000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,280000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,70000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,340000, Clocks
+
+Total Work Time,1030000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,390000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,280000, Clocks
+General Timing 1,110000, Clocks
+General Timing 2,100000, Clocks
+General Timing 3,0, Clocks
+All Processing,450000, Clocks
+
+Total Work Time,1380000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,10000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,360000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,210000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,80000, Clocks
+General Timing 3,0, Clocks
+All Processing,470000, Clocks
+
+Total Work Time,1320000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,0, Clocks
+Segment Image,0, Clocks
+Feature Extraction,400000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,250000, Clocks
+General Timing 1,150000, Clocks
+General Timing 2,90000, Clocks
+General Timing 3,0, Clocks
+All Processing,500000, Clocks
+
+Total Work Time,1440000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,10000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,10000, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,870000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,570000, Clocks
+General Timing 1,300000, Clocks
+General Timing 2,90000, Clocks
+General Timing 3,0, Clocks
+All Processing,1090000, Clocks
+
+Total Work Time,3000000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,20000, Clocks
+Capture Images,40000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,10000, Clocks
+Segment Image,0, Clocks
+Feature Extraction,860000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,570000, Clocks
+General Timing 1,290000, Clocks
+General Timing 2,100000, Clocks
+General Timing 3,0, Clocks
+All Processing,1180000, Clocks
+
+Total Work Time,3090000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,10000, Clocks
+Capture Images,20000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,10000, Clocks
+Segment Image,20000, Clocks
+Feature Extraction,820000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,0, Clocks
+Audio Generation,0, Clocks
+General Timing 0,530000, Clocks
+General Timing 1,290000, Clocks
+General Timing 2,90000, Clocks
+General Timing 3,0, Clocks
+All Processing,1130000, Clocks
+
+Total Work Time,2940000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,40000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,0, Clocks
+Calc Depth,10000, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,830000, Clocks
+Histogram Generation,0, Clocks
+Signtature Generation,60000, Clocks
+Audio Generation,6180000, Clocks
+General Timing 0,530000, Clocks
+General Timing 1,300000, Clocks
+General Timing 2,90000, Clocks
+General Timing 3,0, Clocks
+All Processing,7110000, Clocks
+
+Total Work Time,15190000
+Timing Information for run through:
+Clocks Per second:, 1000000 
+Init,30000, Clocks
+Capture Images,30000, Clocks
+Calc Disparity,10000, Clocks
+Calc Depth,10000, Clocks
+Segment Image,10000, Clocks
+Feature Extraction,870000, Clocks
+Histogram Generation,10000, Clocks
+Signtature Generation,100000, Clocks
+Audio Generation,6060000, Clocks
+General Timing 0,580000, Clocks
+General Timing 1,290000, Clocks
+General Timing 2,100000, Clocks
+General Timing 3,0, Clocks
+All Processing,13640000, Clocks
+
+Total Work Time,21740000
