@@ -935,7 +935,7 @@ void vuConvertUnsignedCharToFloatMatrixAndScale(MatrixData * dataIn, MatrixData 
 }
 
 //Disparity is a float, Q is a double, results are floats
-void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut)
+void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut, int xOffset, int yOffset)
 {
 	uchar * QRowPtrBase = QIn->data;
 	int QRowPtrStep = QIn->step[0];
@@ -978,8 +978,8 @@ void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixD
 		for(x = 0; x< disparityDataIn->cols; x++)
 		{
 			
-			currentData[0] = (float)x; 
-			currentData[1]= (float)y;
+			currentData[0] = (float)(x+xOffset); 
+			currentData[1]= (float)(y+yOffset);
 			currentData[2] = disparityDataInRowPtr[x];
 			tempX = 0;
 			tempY = 0;
@@ -1018,7 +1018,7 @@ void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixD
 
 
 //Disparity is a short int, Q is a double, results are short int
-void vuProjectPointsTo3DFixedPoint(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut)
+void vuProjectPointsTo3DFixedPoint(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut, int xOffset, int yOffset)
 {
 	uchar * QRowPtrBase = QIn->data;
 	int QRowPtrStep = QIn->step[0];
@@ -1061,8 +1061,8 @@ void vuProjectPointsTo3DFixedPoint(MatrixData * disparityDataIn, MatrixData * QI
 		for(x = 0; x< disparityDataIn->cols; x++)
 		{
 
-			currentData[0] = ((int)x) << DISPARITY_FIXED_POINT_FRACTIONAL_BITS;
-			currentData[1]= ((int)y) << DISPARITY_FIXED_POINT_FRACTIONAL_BITS;
+			currentData[0] = ((int)x+xOffset) << DISPARITY_FIXED_POINT_FRACTIONAL_BITS;
+			currentData[1]= ((int)y+yOffset) << DISPARITY_FIXED_POINT_FRACTIONAL_BITS;
 			currentData[2] = (int)disparityDataInRowPtr[x];
 			tempX = 0;
 			tempY = 0;

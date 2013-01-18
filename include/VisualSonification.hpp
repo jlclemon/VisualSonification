@@ -62,18 +62,7 @@ OF SUCH DAMAGE.  */
 #include "VisionUtilities.h"
 #include "sift.hpp"
 #include "audioUtilities.h"
-#ifdef USE_GESTURE_ENGINE
-#include <VisionEngine.h>
-#include <typeinfo>
-#include <GestureEngine.h>
-#include <sosal.h>
 
-#endif
-#ifdef USE_VISION_ENGINE
-#include <VisionEngine.h>
-#include <typeinfo>
-#include <sosal.h>
-#endif
 using namespace std;
 using namespace cv;
 
@@ -449,11 +438,6 @@ struct VisualSonificationStateData
 	//Stereo Calibration Data
 	StereoCameraCalibration stereoCalibration;
 
-	#ifdef USE_GESTURE_ENGINE
-	VisionCam * visionCam;
-	DVP_Image_t * visionCamImage;
-	dvp_display_t *dvpd;
-	#endif
 
 
 	//These are the capture streams for live feed
@@ -687,129 +671,6 @@ private:
 	VisualSonificationInfo * infoForMouse;
 };
 
-
-#ifdef USE_GESTURE_ENGINE
-//Wrapper class for visual sonification
-class VisualSonificationGestureEngine : public GestureEngine
-{
-public:
-	VisualSonificationGestureEngine();
-	virtual ~VisualSonificationGestureEngine();
-
-
-
-	//Vision Engine Calls when startup, gesture engine means when power status high 
-	//This sets up the Graph for me
-    status_e GraphSetup();
-
-
-	//Vision Engine calls New data arrived from the camera, this is called to let me know
-    status_e GraphUpdate(DVP_Image_t *pImage);
-
-
-	//A piece of the graph has complete processing,  this is the data for it
-    void GraphSectionComplete(DVP_KernelGraph_t *graph, DVP_U32 sectionIndex, DVP_U32 numNodesExecuted);
-
-    /** This allows the GestureDaemon to set parameters to the GestureEngine */
-    status_e SetConfigurationData(const char *section, const char *variable, const char *value);
-
-    /** This allows the GestureDaemon to query the GestureEngine for parameters */
-    status_e GetConfigurationData(const char *section, const char *variable, char *value, size_t len);
-
-
-
-
-
-
-
-private:
-
-
-    int32_t m_dmin; /** Minimum Disparity in Pixels */
-    int32_t m_dmax; /** Maximum Disparity in Pixels */
-    int32_t m_consistency; /** Consistency of Pixel between Left/Right Frames **/
-    int32_t m_uniqueness;  /** Refers to Curvature **/
-    int32_t m_windowsize;  /** Window Size         **/
-
-
-};
-
-
-#endif
-
-
-#ifdef USE_VISION_ENGINE
-//Wrapper class for visual sonification
-class VisualSonificationVisionEngine : public VisionEngine
-{
-public:
-	VisualSonificationVisionEngine();
-	virtual ~VisualSonificationVisionEngine();
-
-
-
-
-	//Vision Engine Calls when startup, gesture engine means when power status high 
-	//This sets up the Graph for me
-    status_e GraphSetup();
-
-
-	//Vision Engine calls New data arrived from the camera, this is called to let me know
-    status_e GraphUpdate(DVP_Image_t *pImage);
-
-
-	//A piece of the graph has complete processing,  this is the data for it
-    void GraphSectionComplete(DVP_KernelGraph_t *graph, DVP_U32 sectionIndex, DVP_U32 numNodesExecuted);
-
-
-
-    /** This method is run directly after the Kernel Graphs are executed */
-    status_e PostProcessImage(DVP_Image_t *pImage, uint32_t numSections);
-
-
-
-	status_e waitForAudioDataReadyEvent(int timeout);
-
-	int32_t getReadyAudioBufferList(uint8_t * buffer, int32_t bufferSize);
-	int32_t getReadyHistogramBufferList(uint8_t * buffer, int32_t bufferSize);
-	int32_t getReadyHistogramBufferListAndProcessImages(uint8_t * buffer, int32_t bufferSize);
-	int32_t getProcessImageData(uint8_t * buffer, int32_t bufferSize, int32_t imageNumber, int32_t imageRowStart, int32_t imageRowCount);
-	int32_t setWriteProcessImagesFlag(uint8_t newFlag);
-
-
-protected:
-	event_t m_audioDataReadyEvent;
-	struct SonificationAudioBufferList * m_audioBufferListPtr;
-	struct SonificationAudioBufferList * m_audioBufferListReadyBufferPtr;
-	struct SonificationHistogramBufferList * m_histogramBuffersListPtr;
-	struct SonificationHistogramBufferList * m_histogramBuffersListReadyBufferPtr;
-
-	Mat * m_soniciationProcessImages;//[VISUAL_SONIFICATION_IMAGE_NUMBER_OF_PROCESS_IMAGES];
-	Mat * m_soniciationProcessImagesReadyBuffer;//[VISUAL_SONIFICATION_IMAGE_NUMBER_OF_PROCESS_IMAGES];
-	Mat * m_soniciationProcessImagesTxBuffer;//[VISUAL_SONIFICATION_IMAGE_NUMBER_OF_PROCESS_IMAGES];
-
-
-	bool dataReady;
-	mutex_t m_audioBufferMutex;
-	uint8_t m_writeProcessImagesToOutput;
-	
-	
-    int32_t m_dmin; /** Minimum Disparity in Pixels */
-    int32_t m_dmax; /** Maximum Disparity in Pixels */
-    int32_t m_consistency; /** Consistency of Pixel between Left/Right Frames **/
-    int32_t m_uniqueness;  /** Refers to Curvature **/
-    int32_t m_windowsize;  /** Window Size         **/
-
-	
-
-
-
-};
-
-
-
-
-#endif
 
 
 

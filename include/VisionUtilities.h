@@ -138,8 +138,8 @@ void vuAbsFloatSingleChannel(MatrixData * dataIn, MatrixData * dataOut);
 void vuAbsShortIntSingleChannel(MatrixData * dataIn, MatrixData * dataOut);
 
 
-void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut);
-void vuProjectPointsTo3DFixedPoint(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut);
+void vuProjectPointsTo3D(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut, int xOffset=0, int yOffset=0);
+void vuProjectPointsTo3DFixedPoint(MatrixData * disparityDataIn, MatrixData * QIn, MatrixData * depthDataOut, int xOffset=0, int yOffset=0);
 
 void vuPrintHistogram(HistogramFloatPtr histogram, int histogramSize);
 void vuPrintFeatureVectorToConsole(MatrixData * featuresData, int index);
