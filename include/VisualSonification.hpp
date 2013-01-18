@@ -62,6 +62,8 @@ OF SUCH DAMAGE.  */
 #include "VisionUtilities.h"
 #include "sift.hpp"
 #include "audioUtilities.h"
+#include "ThreadManager.h"
+
 
 using namespace std;
 using namespace cv;
@@ -279,7 +281,7 @@ struct SonificationHistogramBufferList
 
 
 //This is the configuration struct
-struct VisualSonificationStateConfig
+struct VisualSonificationStateConfig : BaseConfig
 {
 	//These are the ids used to setup a camera capture stream
 	int leftCameraId;
@@ -429,7 +431,7 @@ struct SiftConfigData
 
 
 //This contains the data used by the application
-struct VisualSonificationStateData
+struct VisualSonificationStateData : BaseData
 {
 	int checkStackStart;
 	//Current State

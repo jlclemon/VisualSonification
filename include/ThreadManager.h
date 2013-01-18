@@ -292,7 +292,7 @@ class BaseData
 
 
 	}
-	virtual void clearData();
+	virtual void clearData() = 0;
 
 
 	protected:

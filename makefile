@@ -2,7 +2,7 @@
 
 #---------PROJECT FILES---------
 
-CPPFILES= CodeWordDictionaryUtilities.cpp ConnectedComponent.cpp HistogramSoundSource.cpp sift.cpp StereoCameraCalibration.cpp VisionUtilities.cpp AudioUtilities.cpp Parse.cpp
+CPPFILES= CodeWordDictionaryUtilities.cpp ConnectedComponent.cpp HistogramSoundSource.cpp sift.cpp StereoCameraCalibration.cpp VisionUtilities.cpp AudioUtilities.cpp Parse.cpp ThreadManager.cpp
 CCFILES= 
 CFILES= 
 FILES = $(CPPFILES) $(CCFILES) $(CFILES)
