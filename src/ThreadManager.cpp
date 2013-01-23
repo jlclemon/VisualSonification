@@ -249,7 +249,7 @@ int Thread::lanuchThread(pthread_attr_t * attribute)
 
 
 
-	int errcode = pthread_create(this->getThreadIdPtr(),attribute,this->getThreadFunction(),this);
+	int errcode = pthread_create(this->getThreadIdPtr(),attribute,this->getThreadFunction(),this->getThreadParam());//this);
 	if(errcode != 0)
 	{
 		cout << "Error creating thread: " << strerror(errcode) << endl;
@@ -388,7 +388,7 @@ int ThreadManager::setupBarrier()
 {
 
 	
-	for(int i = 0; i<threadList.size(); i++)
+	for(unsigned int i = 0; i<threadList.size(); i++)
 	{
 		threadList[i].setBarrierPtr(&barrier);
 
@@ -459,6 +459,55 @@ int ThreadManager::launchThread(int threadId,pthread_attr_t * attribute, bool se
 
 }
 
+int ThreadManager::setupThreadWithoutLaunch(int threadId, bool setThreadPtrAsParam)
+{
+	int errcode = 0;
+	Thread * currentThreadPtr = (this->getThread(threadId));
+
+	currentThreadPtr->setThreadManagerPtr(this);
+	currentThreadPtr->setThreadLogicalId(threadId);
+	if(setThreadPtrAsParam)
+	{
+		currentThreadPtr->setThreadParam(currentThreadPtr);
+	}
+
+	this->setThreadBarrier(threadId);
+	this->setThreadThreadSpecificDataKeyPtrToMine(threadId);
+
+
+
+	return errcode;
+
+
+
+
+}
+
+int ThreadManager::setupThreadAsCallingThread(int threadId, bool setThreadPtrAsParam)
+{
+	int errcode = 0;
+	Thread * currentThreadPtr = (this->getThread(threadId));
+
+	currentThreadPtr->setThreadManagerPtr(this);
+	currentThreadPtr->setThreadLogicalId(threadId);
+	if(setThreadPtrAsParam)
+	{
+		currentThreadPtr->setThreadParam(currentThreadPtr);
+	}
+
+	this->setThreadBarrier(threadId);
+	this->setThreadThreadSpecificDataKeyPtrToMine(threadId);
+
+	currentThreadPtr->setThreadIdToThisThread();
+
+	return errcode;
+
+
+
+
+}
+
+
 
 
 
@@ -467,7 +516,7 @@ int  ThreadManager::setupThreadSpecificDataKey()
 	int returnVal = 0;
 
 
-	for(int i = 0; i<threadList.size(); i++)
+	for(unsigned int i = 0; i<threadList.size(); i++)
 	{
 		setThreadThreadSpecificDataKeyPtrToMine(i);
 

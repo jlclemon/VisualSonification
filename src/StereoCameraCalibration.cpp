@@ -334,7 +334,7 @@ int StereoCameraCalibration::handleStereoCalibration(struct StereoCameraCalibrat
 	//How many frames we have
 	int frameCount = 0;
 
-	clock_t prevTimeStamp;
+	clock_t prevTimeStamp = clock();
 
 
 	Mat currentLeftFrame;
@@ -977,7 +977,7 @@ void StereoCameraCalibration::loadStereoCameraParams( const string& filename,
 	
 	time_t t;
     time( &t );
-    struct tm *t2 = localtime( &t );
+    //struct tm *t2 = localtime( &t );
     string calibrationTimeString;
 
     (string)fs["calibration_time"]=calibrationTimeString;

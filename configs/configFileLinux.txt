@@ -2,7 +2,7 @@
 -calibrationFile
 #logStereoCameraHomeVGA.yml
 #logStereoCameraWork.yml
-logStereoCameraHome.yml
+./data/cameraCalibrations/logStereoCameraHome.yml
 #minStereoCameraVGA.yml
 
 #this defines the input mode, stereo or depth camera
@@ -13,8 +13,8 @@ stereo
 
 #this defines the input type, a stream, image list or a video file
 -inputType
-#imageList
-stream
+imageList
+#stream
 #imageList
 #videoFile
 
@@ -85,22 +85,27 @@ sift_vl
 #Overriding config file
 
 -dictionaryFile
-/home/jlclemon/Documents/visionData/visionData/Dictionaries/dictionaryFile_CarPerson_10.yml
+./data/dictionaries/dictionaryFile_AllObjects_15.yml
+#/home/jlclemon/Documents/visionData/visionData/Dictionaries/dictionaryFile_CarPerson_10.yml
 #C:/Users/jlclemon/Documents/VisionData/SurfLocalSurfDesc/ProbBookAloneWithImages/Dictionary/dictionaryFile_200.yml
 
 
 
 -rightImageListBaseDir
-/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
+./data/PaperPhotos/JoeAtHotel/
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
 
 -leftImageListBaseDir
-/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
+./data/PaperPhotos/JoeAtHotel/
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/
 
 -rightImageList
-/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/rightImageList.txt
+./data/PaperPhotos/JoeAtHotel/rightImageList.txt
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/rightImageList.txt
 
 -leftImageList
-/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/leftImageList.txt
+./data/PaperPhotos/JoeAtHotel/leftImageList.txt
+#/home/jlclemon/Documents/visionData/visionData/PaperPhotos/JoeAtHotel/leftImageList.txt
 
 -sonificationTechnique
 harmonics_piano
@@ -111,11 +116,13 @@ harmonics_piano
 
 #-segmentUsingExternalMask
 
--placeHistogramInBuffers
+-no-placeHistogramInBuffers
 
 -no-placeAudioInBuffers
 
--no-useOpenAlToPlay
+#-no-useOpenAlToPlay
+-useOpenAlToPlay
+
 
 #-saveRegionAudioFiles
 

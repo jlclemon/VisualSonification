@@ -75,7 +75,7 @@ AnnotatedDatasetInfo getAnnotatedImageData(Mat Image, string datafile){
 			if(line.length() == 0) continue;
 
 			int col = 0;
-			for(int i = 0 ; i < line.length() ; i++){
+			for(unsigned int i = 0 ; i < line.length() ; i++){
 				char ch = line[i];
 
 				// add data into "Labels"

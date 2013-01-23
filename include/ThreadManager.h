@@ -62,7 +62,15 @@ class Thread
 
 		}
 
+		int setThreadIdToThisThread()
+		{
+			int errcode = 0;
 
+			this->threadId = pthread_self();			
+
+			return errcode;
+
+		}
 
 		int getThreadLogicalId()
 		{
@@ -241,6 +249,9 @@ public:
 	void setThreadBarrier(int threadId);
 	int launchThread(int threadId,void * (*newThreadFunction)(void *), pthread_attr_t * attribute, bool setThreadPtrAsParam=false);
 	int launchThread(int threadId, pthread_attr_t * attribute, bool setThreadPtrAsParam=false);
+	int setupThreadWithoutLaunch(int threadId, bool setThreadPtrAsParam);
+	int setupThreadAsCallingThread(int threadId, bool setThreadPtrAsParam);
+
 	void * getThreadSpecificData(void);
 	void setThreadSpecificData(void *threadSpecificData);
 	int  setupThreadSpecificDataKey();
@@ -342,9 +353,9 @@ public:
 
 	//Thread * myThread;
 	ThreadManager * threadManager;
-
-	int numberOfVerticalThreads;
 	int numberOfHorizontalThreads;
+	int numberOfVerticalThreads;
+
 	int totalNumberOfThreads;
 
 	bool coordinator;

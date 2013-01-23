@@ -85,6 +85,7 @@ HistogramSoundSource::HistogramSoundSource(void)
 	modALBuffersCreated = false;
 	this->trueModulatedSignal = false;
 	this->normalizeHistogram = false;
+	this->relativeToListener = true;
 	ALenum error;
 	error = alGetError();
 	if(error != AL_NO_ERROR)
@@ -92,7 +93,7 @@ HistogramSoundSource::HistogramSoundSource(void)
 		DisplayALError("Gen Source Error: ",error);
 	}
 
-#ifdef VERBOSE_OUPUT
+#ifdef VERBOSE_OUTPUT
 	cout << "Source generated: " << this->histogramSource << endl;
 #endif
 
@@ -149,7 +150,7 @@ HistogramSoundSource::HistogramSoundSource(const HistogramSoundSource & other)
 	{
 		DisplayALError("Gen Source Error: ",error);
 	}
-#ifdef VERBOSE_OUPUT
+#ifdef VERBOSE_OUTPUT
 	cout << "Source generated: " << this->histogramSource << endl;
 #endif
 	this->histogramLength = other.histogramLength;
@@ -279,7 +280,7 @@ HistogramSoundSource & HistogramSoundSource::operator=(const HistogramSoundSourc
 	error = alGetError();
 	if(error != AL_NO_ERROR)
 	{
-		DisplayALError("Relative Set Error: ",error);
+		DisplayALError("Relative Set Error  Op=: ",error);
 	}
 	this->sampleFreq = other.sampleFreq;
 	this->maxFrequencyInHz =  other.maxFrequencyInHz;
@@ -318,11 +319,11 @@ HistogramSoundSource::~HistogramSoundSource(void)
 		;
 	}
 
-	this->releaseAudioBuffers();
-#ifdef VERBOSE_OUPUT
+#ifdef VERBOSE_OUTPUT
 	cout << "Source Deleted: " << this->histogramSource << endl;
 #endif
 	alDeleteSources(1,&(this->histogramSource));
+	this->releaseAudioBuffers();
 	ALenum error;
 	error = alGetError();
 	if(error != AL_NO_ERROR)
@@ -339,13 +340,13 @@ int HistogramSoundSource::releaseAudioBuffers()
 	{
 		if(this->histogramBuffers.size() != 0)
 		{
-		
+
 			alDeleteBuffers(this->histogramBuffers.size(), &(this->histogramBuffers[0]));
 				ALenum error;
 				error = alGetError();
 				if(error != AL_NO_ERROR)
 				{
-					DisplayALError("Buffere Delete Error: ",error);
+					DisplayALError("Buffere Delete Error Release Histograms: ",error);
 				}
 
 
@@ -360,7 +361,7 @@ int HistogramSoundSource::releaseAudioBuffers()
 				error = alGetError();
 				if(error != AL_NO_ERROR)
 				{
-					DisplayALError("Buffere Delete Error: ",error);
+					DisplayALError("Buffere Delete Error Release Mod Al: ",error);
 				}
 
 
@@ -1027,7 +1028,7 @@ bool HistogramSoundSource::checkPlayingComplete(void)
 	error = alGetError();
 	if(error != AL_NO_ERROR)
 	{
-		DisplayALError("Check Source State Error: ",error);
+		DisplayALError("Check Source State Error Check Complete: ",error);
 	}
 
 	if(currentState != AL_PLAYING ||this->histogramBuffers.size() ==0 || ALBuffersCreated==false)
@@ -1696,7 +1697,7 @@ void HistogramSoundSource::playWaveBufferData(int sampleFreq, signed short int *
 			error = alGetError();
 			if(error != AL_NO_ERROR)
 			{
-				DisplayALError("Check Source State Error: ",error);
+				DisplayALError("Check Source State Error Playing: ",error);
 			}
 
 			if(currentState != AL_PLAYING)
@@ -1722,7 +1723,7 @@ void HistogramSoundSource::playWaveBufferData(int sampleFreq, signed short int *
 		error = alGetError();
 		if(error != AL_NO_ERROR)
 		{
-			DisplayALError("Buffere Delete Error: ",error);
+			DisplayALError("Buffere Delete Error Delete after block: ",error);
 		}
 
 		alDeleteSources(1,&(histogramSource));

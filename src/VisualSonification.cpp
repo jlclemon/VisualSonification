@@ -4028,6 +4028,336 @@ void handleKey(int key, bool & done, VisualSonificationInfo & info)
 	lastKey = key;
 }
 
+void * visualSonificationMainThread(void *)
+{
+	
+	
+	
+	
+	return NULL;
+}
+
+
+int visualSonificationMainLoop(VisualSonificationInfo &visualSonificationInfo)
+{
+	//flag for when done and the key variable
+	bool done = false;
+	bool lastIteration = false;
+	int key = -1;
+	
+	//The number of remaining images initial setup
+	int numberOfImagesRemaining = 2;
+
+//	clock_t extractionTimeStart;
+//	clock_t extractionTimeStop;
+
+	//Initialize the timing
+	vuInitTimingInformation();
+
+	//While done flag is not set
+	while(!done)
+	{
+#ifndef ANDROID
+		cout << "Beginning state: " << visualSonificationInfo.data.currentState << endl;
+#endif
+		//Execute current state
+		switch(visualSonificationInfo.data.currentState)
+		{
+			case VISUAL_SONIFICATION_STATE_INIT:
+
+
+				//Timing
+				getStartClockTime(TIMING_EVENT_INIT);
+				
+				//Call the init state handler
+				visualSonificationInit(visualSonificationInfo);
+
+				//Timing
+				getEndClockTime(TIMING_EVENT_INIT);
+
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_DATA_CAPTURE;
+				break;
+			case VISUAL_SONIFICATION_STATE_DATA_CAPTURE:
+				getStartClockTime(TIMING_EVENT_ALL);
+				getStartClockTime(TIMING_EVENT_CAPTURE_IMAGE);
+
+				//Get the current set of images and data
+ 				numberOfImagesRemaining = getNextImages(visualSonificationInfo);
+				if(numberOfImagesRemaining ==0)
+				{
+					lastIteration = true;
+					//done = true;
+				}
+				if(numberOfImagesRemaining <0)
+				{
+					done = true;
+					break;
+				}
+
+
+				getEndClockTime(TIMING_EVENT_CAPTURE_IMAGE);
+
+
+				//Save or show any images or windows relaitve to this state that are available
+				if(visualSonificationInfo.config.showRawDepthImage)
+				{
+					//Mat rawDepthDisplay;
+					//visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].convertTo(rawDepthDisplay,CV_8U,255.0/((double)(visualSonificationInfo.data.stereoBlockMatcher.state->numberOfDisparities* 16)));					
+					
+
+
+					Mat colorDisparity(visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].rows,visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].cols,CV_8UC3);
+					vuColorDisparityMap(&visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA], &colorDisparity,(float)visualSonificationInfo.data.stereoBlockMatcher.state->numberOfDisparities, (float)16);
+					imshow("Raw Depth Image", colorDisparity);
+				}
+
+				if(visualSonificationInfo.config.saveRawDepthImage)
+				{
+					//Mat rawDepthDisplay;
+					//visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].convertTo(rawDepthDisplay,CV_8U,255.0/((double)(visualSonificationInfo.data.stereoBlockMatcher.state->numberOfDisparities* 16)));					
+					Mat colorDisparity(visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].rows,visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].cols,CV_8UC3);
+					vuColorDisparityMap(&visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA], &colorDisparity,(float)visualSonificationInfo.data.stereoBlockMatcher.state->numberOfDisparities, (float)16);
+
+					imwrite("lastRawDepthImage.png",colorDisparity);
+
+				}
+				if(visualSonificationInfo.config.save3dPoints)
+				{
+					FileStorage fs("last3dPoints.yml", FileStorage::WRITE);
+					fs << "3dPoints" << visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA];
+					fs.release();
+					ofstream text3dPoints;
+					text3dPoints.open("last3dPoints.txt");
+					const double max_z = 1.0e4;
+
+					for(int y = 0; y < visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].rows; y++)
+					{
+						for(int x = 0; x < visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].cols; x++)
+						{
+							Vec3f point = visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_DEPTH_CAMERA].at<Vec3f>(y, x);
+							if(fabs(point[2] - max_z) < FLT_EPSILON || fabs(point[2]) > max_z)
+							{
+								continue;
+							}
+							text3dPoints <<point[0]<<" "<< point[1]<<" " <<point[2] << endl;
+						}
+					}
+
+					text3dPoints.close();
+
+
+				}
+
+
+
+				if(visualSonificationInfo.config.showRawInputImage)
+				{
+					Mat rawLeftInputDisplay;
+					rawLeftInputDisplay = visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA];
+
+					if(!rawLeftInputDisplay.empty())
+					{
+						imshow("Raw Left Input Image", rawLeftInputDisplay);
+					}
+					Mat rawRightInputDisplay;
+					rawRightInputDisplay = visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA];
+
+					if(!rawRightInputDisplay.empty())
+					{
+						imshow("Raw Right Input Image", rawRightInputDisplay);
+					}
+
+				}
+				if(visualSonificationInfo.config.saveRawInputImage)
+				{
+					imwrite("lastLeftRawInput.png",visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA]); 
+					imwrite("lastRightRawInput.png",visualSonificationInfo.data.currentRawCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA]); 
+				}
+
+
+
+				if(visualSonificationInfo.config.showRemappedInputImage)
+				{
+					Mat remappedLeftInputDisplay;
+					remappedLeftInputDisplay = visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA];
+
+					if(!remappedLeftInputDisplay.empty())
+					{
+						imshow("Remapped Left Input Image", remappedLeftInputDisplay);
+					}
+					Mat remappedRightInputDisplay;
+					remappedRightInputDisplay = visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA];
+
+					if(!remappedRightInputDisplay.empty())
+					{
+						imshow("Remapped Right Input Image", remappedRightInputDisplay);
+					}
+
+				}
+				if(visualSonificationInfo.config.saveRemappedInputImage)
+				{
+					imwrite("lastLeftRemappedInput.png",visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA]); 
+					imwrite("lastRightRemappedInput.png",visualSonificationInfo.data.currentCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA]); 
+				}
+
+
+
+				if(visualSonificationInfo.config.showGrayscaleInputImage)
+				{
+					Mat grayLeftInputDisplay;
+					grayLeftInputDisplay = visualSonificationInfo.data.currentGrayCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA];
+
+					if(!grayLeftInputDisplay.empty())
+					{
+						imshow("Grayscale Left Input Image", grayLeftInputDisplay);
+					}
+					
+					Mat grayRightInputDisplay;
+					grayRightInputDisplay = visualSonificationInfo.data.currentGrayCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA];
+
+					if(!grayRightInputDisplay.empty())
+					{
+						imshow("Grayscale Right Input Image", grayRightInputDisplay);
+					}
+					
+				}
+
+				if(visualSonificationInfo.config.saveGrayscaleInputImage)
+				{
+					imwrite("lastGrayscaleLeft.png",visualSonificationInfo.data.currentGrayCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA]); 
+					imwrite("lastGrayscaleRight.png",visualSonificationInfo.data.currentGrayCameraFrames[VISUAL_SONIFICATION_RIGHT_CAMERA]); 
+				}
+
+		
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_SEGMENTATION;
+				break;
+			case VISUAL_SONIFICATION_STATE_SEGMENTATION:
+
+				getStartClockTime(TIMING_EVENT_SEGMENT);
+
+				if(!visualSonificationInfo.config.segmentUsingExternalMask)
+				{
+					//Call the segmentation of the input data
+					visualSonificationSegmentInputs(visualSonificationInfo);
+				}
+				else
+				{
+					visualSonificationSegmentInputsWithExternalMask(visualSonificationInfo);
+
+				}
+
+
+				getEndClockTime(TIMING_EVENT_SEGMENT);
+
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_FEATURE_EXTRACTION;
+				break;
+			case VISUAL_SONIFICATION_STATE_FEATURE_EXTRACTION:
+//				extractionTimeStart = clock();
+				getStartClockTime(TIMING_EVENT_FEATURE_EXTRACTION);
+
+				//Perform the feature extraction
+				visualSonificationExtractFeatures(visualSonificationInfo);
+				getEndClockTime(TIMING_EVENT_FEATURE_EXTRACTION);
+//				extractionTimeStop = clock();
+//				cout << "Feature Extraction Time: "<< extractionTimeStop - extractionTimeStart << endl;
+
+				//Show the requested information
+				if(visualSonificationInfo.config.showFeaturesImage)
+				{
+					Mat grayLeftInput;
+					grayLeftInput = visualSonificationInfo.data.currentGrayCameraFrames[VISUAL_SONIFICATION_LEFT_CAMERA];
+
+					if(!grayLeftInput.empty())
+					{
+						Mat featureLeftInputDisplay;
+						if(grayLeftInput.channels() ==3)
+						{
+							cvtColor(grayLeftInput,featureLeftInputDisplay,CV_BGR2GRAY);
+						}
+						else
+						{
+							grayLeftInput.copyTo(featureLeftInputDisplay);
+						}
+						Mat featureLeftInputDisplayWithFeatures;
+						drawKeypoints(featureLeftInputDisplay,visualSonificationInfo.data.currentKeypoints[VISUAL_SONIFICATION_LEFT_CAMERA],featureLeftInputDisplayWithFeatures,Scalar(255.0,0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);			
+						
+						imshow("GrayLeft",grayLeftInput);
+						imshow("Left Features Image", featureLeftInputDisplayWithFeatures);
+		
+					}
+		
+				
+				}
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_HISTOGRAM_GENERATION;
+				break;
+			case VISUAL_SONIFICATION_STATE_HISTOGRAM_GENERATION:
+				getStartClockTime(TIMING_EVENT_HISTOGRAM_GENERATION);
+
+				//Create the histograms
+				visualSonificationCreateHistograms(visualSonificationInfo);
+				getEndClockTime(TIMING_EVENT_HISTOGRAM_GENERATION);
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_SIGNTATURE_GENERATION;
+				break;
+			case VISUAL_SONIFICATION_STATE_SIGNTATURE_GENERATION:
+				getStartClockTime(TIMING_EVENT_SIGNATURE_GENERATION);
+
+				//Create the audio signatures
+				visualSonificationCreateAudioSignatures(visualSonificationInfo);
+				getEndClockTime(TIMING_EVENT_SIGNATURE_GENERATION);
+
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_AUDIO_GENERATION;
+				break;
+			case VISUAL_SONIFICATION_STATE_AUDIO_GENERATION:
+				getStartClockTime(TIMING_EVENT_AUDIO_GENERATION);
+
+				//Play the audio signatures
+				visualSonificationPlayAudioSignatures(visualSonificationInfo);
+				getEndClockTime(TIMING_EVENT_AUDIO_GENERATION);
+				visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_DATA_CAPTURE;
+				getEndClockTime(TIMING_EVENT_ALL);
+				if( lastIteration)
+				{
+					done = true;
+				}
+
+
+#ifdef DISPLAY_TIMING_WINDOWS
+				vuPrintTimingInformationToConsole();
+#endif
+#ifdef SAVE_TIMING
+				vuPrintTimingInformationToFile();
+#endif
+				break;
+			default:
+				break;
+
+
+		}
+
+		cout << "State Complete.  Next State: " << (int)visualSonificationInfo.data.currentState << endl;
+
+
+		//Handle pause or continuous run mode
+		//Note that a waitKey is required to be called periodically to handle window/screen updates
+		if(!visualSonificationInfo.config.pauseAfterEachStateLoop)
+		{
+			key= waitKey(33) & 0xff;
+		}
+		else
+		{
+			key= waitKey(0) & 0xff;
+		}
+
+
+		//Call the key handler
+		handleKey(key, done,visualSonificationInfo);
+	}
+	
+	
+	
+	return 0;
+}
+
 
 //Desc: This function is main if this is a standalone executable.  It takes the typical program arugments
 //
@@ -4063,6 +4393,7 @@ int main(int argc, char * argv[])
 	//Handle the input parameters and setup the info struct
 	handleParams(argc,argv,visualSonificationInfo);
 
+
 	//flag for when done and the key variable
 	bool done = false;
 	bool lastIteration = false;
@@ -4078,7 +4409,10 @@ int main(int argc, char * argv[])
 		handleKey(key, done,visualSonificationInfo);
 
 	}
+#ifndef USE_OLD_MAIN_LOOP
+	visualSonificationMainLoop(visualSonificationInfo);
 
+#else
 	//Reset the done flag
 	done = false;
 
@@ -4391,11 +4725,17 @@ int main(int argc, char * argv[])
 		handleKey(key, done,visualSonificationInfo);
 	}
 
+#endif
+
 
 	if(visualSonificationInfo.config.useOpenAlToPlay)
 	{
+		visualSonificationInfo.data.audioSignatures.resize(0);
 		auExit();
 	}
+
+
+	cout << "Visual Sonification Main Complete" << endl;
 	return 0;
 }
 #endif
@@ -4885,12 +5225,33 @@ void VisualSonification::initSonificationProcessing()
 
 }
 
-//
-//Desc: This function runs the visual sonification through one step or loop from the class
-//
-//Return: number of images remaining after this loop through (negative means this current loop had no new image)
 
-int VisualSonification::runSonificationProcessing()
+//
+//Desc: This function intializes the visual sonification for the class inclduing loading the configuration file
+//
+//Return: true if more images remain, false otherwise
+
+void VisualSonification::initSonificationProcessing(vector<string> commandArgs)
+{
+
+	infoForMouse = &visualSonificationInfo;
+	visualSonificationInfo.data.currentState = VISUAL_SONIFICATION_STATE_INIT;
+
+//	testVuFunctions();
+//	testConnectedComponent();
+//	return 0;
+
+	//Setup the command string to go get the config file
+	parseParamsVector(commandArgs,visualSonificationInfo);
+
+	visualSonificationInit(visualSonificationInfo);
+	
+
+
+}
+
+
+int singleSteponificationProcessing(VisualSonificationInfo & visualSonificationInfo)
 {
 	static int numberOfImagesRemaining = 2;
 	//bool returnVal = false;
@@ -5105,7 +5466,25 @@ int VisualSonification::runSonificationProcessing()
 #endif
 	//cout << "Stacks:  " << visualSonificationInfo.checkStackStart<< "," << visualSonificationInfo.checkStackEnd<< "," << visualSonificationInfo.data.checkStackStart << ","<<visualSonificationInfo.checkStackEnd << endl;
 	return numberOfImagesRemaining;
+	
+	
+	
+	
+	
+}
 
+
+
+
+
+//
+//Desc: This function runs the visual sonification through one step or loop from the class
+//
+//Return: number of images remaining after this loop through (negative means this current loop had no new image)
+
+int VisualSonification::runSonificationProcessing()
+{
+	return singleSteponificationProcessing(visualSonificationInfo);
 }
 
 

@@ -383,6 +383,13 @@ struct VisualSonificationStateConfig : BaseConfig
 	string regionHistogramFilesOutputDir;
 
 
+	//Mulithreaded configuration from config file
+
+
+	bool multithreaded;
+	int numberOfHorizontalCores;
+	int numberOfVerticalCores;	
+
 
 };
 
@@ -478,6 +485,10 @@ struct VisualSonificationStateData : BaseData
 
 	//Pointer to Vedaldi SIFT
 	Ptr<VL::Sift> siftPtr;
+
+
+
+
 
 	//Sift configuration
 	SiftConfigData siftConfigData;
@@ -592,6 +603,44 @@ struct VisualSonificationStateData : BaseData
 	struct HistogramSoundSource::AudioGenerationInformation audioGenerationConfigData;
 
 	int checkStackEnd;
+
+	//Shared Sift structures (they would be private except I want to balance the load and thus other cores need access to other core's sift object)
+	//Pointers to OpenCV feature detector, extractor, and matcher
+	//Thus these are pointers to arrays that will be configured based on the number of cores
+	Ptr<FeatureDetector> * sharedFeatureDetectors;
+	Ptr<DescriptorExtractor> * sharedDescriptorExtractors;
+	Ptr<DescriptorMatcher>  * sharedFeatureMatchers;
+
+	//Pointer to Vedaldi SIFT
+	Ptr<VL::Sift> * sharedSiftPtrs;
+
+
+
+	virtual void clearData()
+	{
+		
+	}
+
+};
+
+
+//This is the configuration struct
+struct VisualSonificationStatePrivateConfig : BaseConfig
+{
+	Rect imageRegionOfInterest;
+	Rect bufferedImageRegionOfInterest;
+	Point2i regionBufferSize;
+
+
+
+};
+
+//This contains the data used by the application
+struct VisualSonificationStatePrivateData : BaseData
+{
+	int counter;
+
+
 };
 
 
@@ -601,6 +650,7 @@ struct VisualSonificationInfo
 	int checkStackStart;
 	VisualSonificationStateConfig config;
 	VisualSonificationStateData data;
+	Thread * thread;
 	int checkStackEnd;
 
 };
@@ -639,6 +689,8 @@ public:
 
 	//Initializr the sonificaiton processing by loading the config file
 	void initSonificationProcessing();
+	void initSonificationProcessing(vector<string> commandArgs);
+
 
 	//Run through one iteration or single step state based on setting
 	int runSonificationProcessing();
