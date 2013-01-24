@@ -46,8 +46,8 @@ OF SUCH DAMAGE.  */
 #include <string>
 #include <iostream>
 #include <float.h>
-#ifndef ANDROID
-#define SAVE_WAVE_FILES_CAPABLE
+#ifdef ANDROID
+#undef SAVE_WAVE_FILES_CAPABLE
 #endif
 #ifdef SAVE_WAVE_FILES_CAPABLE
 	#include <sndfile.hh>

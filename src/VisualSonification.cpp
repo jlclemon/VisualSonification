@@ -1784,6 +1784,22 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 
 			visualSonificationInfo.config.placeHistogramInBuffers = false;
 		}
+		if(commandArgs[i].compare("-showComponentRegionsAtAudioOutput")==0 ||commandArgs[i].compare("-ShowComponentRegionsAtAudioOutput")==0)
+		{
+
+			//Flag for using segmented Image
+			visualSonificationInfo.config.showComponentRegionsAtAudioOutput=true;
+
+		}
+
+
+		if(commandArgs[i].compare("-no-showComponentRegionsAtAudioOutput")==0 ||commandArgs[i].compare("-no-ShowComponentRegionsAtAudioOutput")==0)
+		{
+
+			//Flag for using segmented Image
+			visualSonificationInfo.config.showComponentRegionsAtAudioOutput=false;
+
+		}
 
 
 		if(commandArgs[i].compare("-segmentUsingExternalMask")==0 ||commandArgs[i].compare("-SegmentUsingExternalMask")==0)
@@ -2330,6 +2346,14 @@ void buildFeatureDescriptors(VisualSonificationInfo & info, Mat & inputImage, ve
 	switch(info.data.featureDescAlgo)
 	{
 		case FEATURE_DESC_SIFT:
+		{
+			//Typical OpenCV descriptor Extraction
+			info.data.descriptorExtractor->compute( inputImage, keyPoints, descriptors );			
+			descriptors = descriptors * (1/512.0);
+			break;
+		}
+
+
 		case FEATURE_DESC_SURF:
 		{
 			//Typical OpenCV descriptor Extraction

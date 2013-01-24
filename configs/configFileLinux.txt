@@ -51,8 +51,8 @@ qvga
 
 #Feature Extraction, feature localization technique
 -local
-#sift
-sift_vl
+sift
+#sift_vl
 #surf
 #fast
 #hog
@@ -60,8 +60,8 @@ sift_vl
 
 #Feature Extraction, feature descriptor technique
 -desc
-#sift
-sift_vl
+sift
+#sift_vl
 #surf
 #brief
 #hog
@@ -85,7 +85,9 @@ sift_vl
 #Overriding config file
 
 -dictionaryFile
-./data/dictionaries/dictionaryFile_AllObjects_15.yml
+./data/dictionaries/sift_dictionaryFile_AllObjects_CV_2_4_15.yml
+#./data/dictionaries/sift_dictionaryFile_AllObjects_CV_2_4_15.yml
+#./data/dictionaries/dictionaryFile_AllObjects_15.yml
 #/home/jlclemon/Documents/visionData/visionData/Dictionaries/dictionaryFile_CarPerson_10.yml
 #C:/Users/jlclemon/Documents/VisionData/SurfLocalSurfDesc/ProbBookAloneWithImages/Dictionary/dictionaryFile_200.yml
 
@@ -150,4 +152,4 @@ harmonics_piano
 -audioSampleFreq
 44100
 
-
+-showComponentRegionsAtAudioOutput
