@@ -387,8 +387,8 @@ struct VisualSonificationStateConfig : BaseConfig
 
 
 	bool multithreaded;
-	int numberOfHorizontalCores;
-	int numberOfVerticalCores;	
+	int numberOfHorizontalThreads;
+	int numberOfVerticalThreads;	
 
 
 };
@@ -639,22 +639,34 @@ struct VisualSonificationStatePrivateConfig : BaseConfig
 struct VisualSonificationStatePrivateData : BaseData
 {
 	int counter;
-
+	virtual void clearData()
+	{
+		
+	}
 
 };
 
 
 //Main structure to pass data around
-struct VisualSonificationInfo
+struct VisualSonificationInfo : BaseInfo
 {
 	int checkStackStart;
 	VisualSonificationStateConfig config;
 	VisualSonificationStateData data;
-	Thread * thread;
 	int checkStackEnd;
 
 };
 
+//Main structure to pass data around
+struct VisualSonificationMultithreadInfo
+{
+	ThreadManager * threadManagerPtr;
+	vector<GeneralWorkerThreadDataHolder> workerThreadDataHolders;
+	vector<VisualSonificationStatePrivateConfig> privateConfigs;
+	vector<VisualSonificationStatePrivateData> privateDatas;
+
+
+};
 
 
 //Wrapper class for visual sonification

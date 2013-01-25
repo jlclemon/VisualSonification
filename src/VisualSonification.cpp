@@ -560,7 +560,7 @@ int visualSonificationExtractFeatures(VisualSonificationInfo & info)
 //The depth camera is actually returned as a 3D point cloud in a three channel image
 //Return: Number of images remaining
 
-int getNextImages(VisualSonificationInfo & info)
+int getNextImages(VisualSonificationInfo & info, Thread * threadPtr=0)
 {
 
 	int imageCountRemaining = INT_MAX;
@@ -1366,6 +1366,12 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 
 	visualSonificationInfo.config.baseRegionAudioFilename = "Image_";
 	visualSonificationInfo.config.baseRegionHistogramFilename = "Image_";
+
+
+	visualSonificationInfo.config.numberOfVerticalThreads = 1;
+	visualSonificationInfo.config.numberOfHorizontalThreads = 1;
+	visualSonificationInfo.config.multithreaded = false;
+
 //	string testStringJay = "-leftCamera";
 
 //	cout << "Parsing COmmand: " <<testStringJay << endl;
@@ -1490,6 +1496,30 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 			{
 #ifndef ANDROID
 				cout << "Depth Camera Id could not be parsed." << endl;
+#endif
+			}
+
+		}
+		if(commandArgs[i].compare("-numHoriThreads")==0 || commandArgs[i].compare("-numHoriThreads")==0)
+		{
+			stringBuffer.str("");
+			stringBuffer << commandArgs[i+1];
+			if((stringBuffer >> visualSonificationInfo.config.numberOfHorizontalThreads).fail())
+			{
+#ifndef ANDROID
+				cout << "Number of Horizontal Threads could not be parsed." << endl;
+#endif
+			}
+
+		}
+		if(commandArgs[i].compare("-numVertThreads")==0 || commandArgs[i].compare("-numVertThreads")==0)
+		{
+			stringBuffer.str("");
+			stringBuffer << commandArgs[i+1];
+			if((stringBuffer >> visualSonificationInfo.config.numberOfVerticalThreads).fail())
+			{
+#ifndef ANDROID
+				cout << "Number of Vertical Threads could not be parsed." << endl;
 #endif
 			}
 
@@ -1868,6 +1898,10 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 			}
 
 		}
+
+
+
+
 		if(commandArgs[i].compare("-minHistogramFreq")==0 || commandArgs[i].compare("-MinHistogramFreq")==0)
 		{
 			stringBuffer.str("");
@@ -1923,12 +1957,17 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 
 
 
-
-
-
-
-
-
+	if((visualSonificationInfo.config.numberOfVerticalThreads * visualSonificationInfo.config.numberOfHorizontalThreads) > 1)
+	{		
+		visualSonificationInfo.config.multithreaded = true;	
+	}
+	if((visualSonificationInfo.config.numberOfVerticalThreads < 1) ||  (visualSonificationInfo.config.numberOfHorizontalThreads < 1))
+	{
+		visualSonificationInfo.config.numberOfVerticalThreads = 1;
+		visualSonificationInfo.config.numberOfHorizontalThreads = 1;
+		visualSonificationInfo.config.multithreaded = false;			
+		
+	}
 }
 
 //Desc: This function converts the typical main parameters to a vector of strings to make manipulation easier
@@ -3835,6 +3874,67 @@ void visualSonificationInit(VisualSonificationInfo &info)
 
 
 }
+
+
+void visualSonificationMultithreadInit(VisualSonificationInfo &info, VisualSonificationMultithreadInfo & multithreadInfo)
+{
+	int totalNumberOfThreads = info.config.numberOfHorizontalThreads * info.config.numberOfVerticalThreads;
+	multithreadInfo.threadManagerPtr = new ThreadManager(totalNumberOfThreads);
+
+
+	multithreadInfo.workerThreadDataHolders.resize(totalNumberOfThreads);
+	multithreadInfo.privateConfigs.resize(totalNumberOfThreads);
+	multithreadInfo.privateDatas.resize(totalNumberOfThreads);
+	
+	
+	for(int i =0; i < totalNumberOfThreads; i++)
+	{
+
+		multithreadInfo.workerThreadDataHolders[i].sharedInfoPtr = &info;
+		multithreadInfo.workerThreadDataHolders[i].sharedConfig = &info.config;
+		multithreadInfo.workerThreadDataHolders[i].sharedData = &info.data;
+
+		multithreadInfo.workerThreadDataHolders[i].threadManager = multithreadInfo.threadManagerPtr;
+		multithreadInfo.workerThreadDataHolders[i].privateConfig = &multithreadInfo.privateConfigs[i];
+		multithreadInfo.workerThreadDataHolders[i].privateData = &multithreadInfo.privateDatas[i];		
+	
+		multithreadInfo.workerThreadDataHolders[i].numberOfHorizontalThreads = info.config.numberOfHorizontalThreads;
+		multithreadInfo.workerThreadDataHolders[i].numberOfVerticalThreads = info.config.numberOfVerticalThreads;
+		multithreadInfo.workerThreadDataHolders[i].totalNumberOfThreads = totalNumberOfThreads;
+
+		multithreadInfo.workerThreadDataHolders[i].coordinator = ((i==0)?true: false);	
+	
+		
+		
+	}
+	
+	//workerThreadInfos = new vector<GeneralWorkerThreadDataHolder>(totalNumberOfThreads);
+	
+	
+	
+	
+	return;
+}
+
+void visualSonificationMultithreadCleanup(VisualSonificationInfo &info, VisualSonificationMultithreadInfo & multithreadInfo)
+{
+	
+
+
+
+	delete multithreadInfo.threadManagerPtr;
+
+	multithreadInfo.workerThreadDataHolders.resize(0);
+	multithreadInfo.privateConfigs.resize(0);
+	multithreadInfo.privateDatas.resize(0);
+
+
+		
+	return;
+}
+
+
+
 
 
 //Desc: This function is the mouse callback for handling getting the depth on a mouse click.  The param is a pointer to 

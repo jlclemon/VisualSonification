@@ -271,6 +271,26 @@ protected:
 
 };
 
+class BaseInfo
+{
+	public:
+	BaseInfo()
+	{
+
+	}
+
+	virtual ~BaseInfo()
+	{
+
+
+	}
+
+	protected:
+	string configId;
+
+};
+
+
 class BaseConfig
 {
 	public:
@@ -314,6 +334,8 @@ class BaseData
 
 class GeneralWorkerThreadDataHolder
 {
+public:	
+
 	GeneralWorkerThreadDataHolder()
 	{
 		this->sharedConfig = NULL;
@@ -341,12 +363,12 @@ class GeneralWorkerThreadDataHolder
 
 	}
 
-public:
+
+
+	BaseInfo * sharedInfoPtr;
 
 	BaseConfig * sharedConfig;
 	BaseData * sharedData;
-
-
 
 	BaseConfig * privateConfig;
 	BaseData * privateData;
