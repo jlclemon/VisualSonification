@@ -627,9 +627,11 @@ struct VisualSonificationStateData : BaseData
 //This is the configuration struct
 struct VisualSonificationStatePrivateConfig : BaseConfig
 {
-	Rect imageRegionOfInterest;
-	Rect bufferedImageRegionOfInterest;
-	Point2i regionBufferSize;
+	Rect regionOfInterest[VISUAL_SONIFICATION_NUMBER_OF_STATES];
+	Rect bufferedRegionOfInterest[VISUAL_SONIFICATION_NUMBER_OF_STATES];
+	Point2i regionBufferSize[VISUAL_SONIFICATION_NUMBER_OF_STATES];
+	int horizontalThreadId;
+	int verticalThreadId;
 
 
 
@@ -734,6 +736,8 @@ public:
 	int getSonificationState();
 private:
 	VisualSonificationInfo visualSonificationInfo;
+	VisualSonificationMultithreadInfo visualSonificationMultithreadInfo;
+
 	VisualSonificationInfo * infoForMouse;
 };
 

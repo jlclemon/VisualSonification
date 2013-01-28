@@ -60,7 +60,7 @@ static enum
 static ALCcontext *alutContext;
 
 
-void DisplayALError(char *msg, ALuint error)
+void DisplayALError(const char *msg, ALuint error)
 {    
 	const char *errMsg = NULL;    
 	switch (error)    

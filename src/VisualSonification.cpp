@@ -67,6 +67,8 @@ VisualSonification visualSonificationObject;
 
 #endif
 
+#include <sched.h>
+#include <unistd.h>
 
 static VisualSonification * visualSonificationObjectPtr;
 
@@ -76,7 +78,7 @@ void localizeFeaturePoints(VisualSonificationInfo & info, Mat & inputImage,  vec
 void buildFeatureDescriptors(VisualSonificationInfo & info, Mat & inputImage, vector<KeyPoint> & keyPoints, Mat & descriptors);
 
 
-
+void * visualSonificationMainThread(void * param);
 
 
 //This assumes the depth maps are float, and the mask is unsigned char
@@ -1491,6 +1493,7 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 		if(commandArgs[i].compare("-depthCamera")==0 || commandArgs[i].compare("-DepthCamera")==0)
 		{
 			stringBuffer.str("");
+			stringBuffer.clear();			
 			stringBuffer << commandArgs[i+1];
 			if((stringBuffer >> visualSonificationInfo.config.depthCameraId).fail())
 			{
@@ -1500,9 +1503,10 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 			}
 
 		}
-		if(commandArgs[i].compare("-numHoriThreads")==0 || commandArgs[i].compare("-numHoriThreads")==0)
+		if(commandArgs[i].compare("-numHoriThreads")==0 || commandArgs[i].compare("-NumHoriThreads")==0)
 		{
 			stringBuffer.str("");
+			stringBuffer.clear();			
 			stringBuffer << commandArgs[i+1];
 			if((stringBuffer >> visualSonificationInfo.config.numberOfHorizontalThreads).fail())
 			{
@@ -1512,9 +1516,10 @@ void parseParamsVector(vector<string> & commandArgs,VisualSonificationInfo & vis
 			}
 
 		}
-		if(commandArgs[i].compare("-numVertThreads")==0 || commandArgs[i].compare("-numVertThreads")==0)
+		if(commandArgs[i].compare("-numVertThreads")==0 || commandArgs[i].compare("-NumVertThreads")==0)
 		{
 			stringBuffer.str("");
+			stringBuffer.clear();			
 			stringBuffer << commandArgs[i+1];
 			if((stringBuffer >> visualSonificationInfo.config.numberOfVerticalThreads).fail())
 			{
@@ -3876,9 +3881,326 @@ void visualSonificationInit(VisualSonificationInfo &info)
 }
 
 
+void  visualSonificationComputePaddedAndUnpaddedRects(int horizontalThreadId, int verticalThreadId, int numberOfHorizontalThreads, int numberOfVerticalThreads,Size frameSize, Point2i bufferAmount, Rect &paddedRegion, Rect &nonpaddedRegion)
+{
+
+
+	Size imageSize = frameSize;
+
+	int nonPaddedRegionWidth = imageSize.width/numberOfHorizontalThreads;
+	int nonPaddedRegionHeight = imageSize.height/numberOfVerticalThreads;
+
+
+
+	int amountOfExtraWorkHorizontal = imageSize.width - (nonPaddedRegionWidth * numberOfHorizontalThreads);
+	int amountOfExtraWorkVertical = imageSize.height - (nonPaddedRegionHeight * numberOfVerticalThreads);
+
+
+	//Set the x and y location of the unpadded
+	if(amountOfExtraWorkHorizontal > 0)
+	{
+
+		if(horizontalThreadId <= amountOfExtraWorkHorizontal-1)
+		{
+			nonPaddedRegionWidth++;
+			nonpaddedRegion.x = horizontalThreadId *nonPaddedRegionWidth;
+		}else
+		{			
+			nonpaddedRegion.x = horizontalThreadId *nonPaddedRegionWidth+amountOfExtraWorkHorizontal;
+		}
+	}
+	else
+	{
+		
+		nonpaddedRegion.x = horizontalThreadId *nonPaddedRegionWidth;		
+		
+	}
+
+	//nonpaddedRegion.x = horizontalThreadId * nonPaddedRegionWidth;
+
+
+	if(amountOfExtraWorkVertical > 0)
+	{
+
+		if(verticalThreadId <= amountOfExtraWorkVertical-1)
+		{
+			nonPaddedRegionHeight++;
+			nonpaddedRegion.y = verticalThreadId *nonPaddedRegionHeight;
+		}else
+		{			
+			nonpaddedRegion.y = verticalThreadId *nonPaddedRegionHeight+amountOfExtraWorkVertical;
+		}
+	}
+	else
+	{
+		
+			nonpaddedRegion.y = verticalThreadId *nonPaddedRegionHeight;
+	}
+
+
+
+	//nonpaddedRegion.y = verticalThreadId *	nonPaddedRegionHeight;
+
+
+	//NonPadded
+	if(horizontalThreadId == 0)
+	{
+
+
+
+	}
+
+	if(horizontalThreadId == numberOfHorizontalThreads-1)
+	{
+		//nonPaddedRegionWidth = imageSize.width - (numberOfHorizontalThreads-1)*nonPaddedRegionWidth;
+
+
+	}
+
+
+	if(verticalThreadId == 0)
+	{
+
+
+
+	}
+
+	if(verticalThreadId == numberOfVerticalThreads-1)
+	{
+		//nonPaddedRegionHeight = imageSize.height - (numberOfVerticalThreads-1)*nonPaddedRegionHeight;
+
+
+	}
+
+
+
+	//Set the height and width of the unpadded
+	nonpaddedRegion.height =nonPaddedRegionHeight;
+	nonpaddedRegion.width =nonPaddedRegionWidth;
+
+
+	//First start the padded with the unpadded Info
+	paddedRegion =nonpaddedRegion;
+
+	//Now check the edges to determine what to modify
+	//Left most edge check
+	if(horizontalThreadId == 0)
+	{
+
+
+
+	}
+	else
+	{
+
+		int overFlowAmount = 0;
+		paddedRegion.x= paddedRegion.x-  bufferAmount.x;
+		if(paddedRegion.x<0)
+		{
+
+			overFlowAmount = paddedRegion.x;
+			paddedRegion.x = 0;
+		}
+		paddedRegion.width = paddedRegion.width+bufferAmount.x + overFlowAmount;
+
+
+	}
+
+
+	//right most edge check
+	if(horizontalThreadId == numberOfHorizontalThreads-1)
+	{
+
+
+
+	}
+	else
+	{
+		int overFlowAmount = 0;
+		int regionEndXLocation = paddedRegion.x+ paddedRegion.width + bufferAmount.x;
+		if(regionEndXLocation> imageSize.width)
+		{
+
+			overFlowAmount = imageSize.width- regionEndXLocation;
+
+		}
+		paddedRegion.width = paddedRegion.width+bufferAmount.x + overFlowAmount;
+	}
+
+
+	//Top most edge check
+	if(verticalThreadId == 0)
+	{
+
+
+
+	}
+	else
+	{
+		int overFlowAmount = 0;
+		paddedRegion.y= paddedRegion.y-  bufferAmount.y;
+		if(paddedRegion.y<0)
+		{
+
+			overFlowAmount = paddedRegion.y;
+			paddedRegion.y =0;
+		}
+		paddedRegion.height = paddedRegion.height+bufferAmount.y + overFlowAmount;
+
+
+
+
+	}
+
+
+	//Bottom most edge
+	if(verticalThreadId == numberOfVerticalThreads-1)
+	{
+
+
+
+	}
+	else
+	{
+		int overFlowAmount = 0;
+		int regionEndLocation = paddedRegion.y+ paddedRegion.height +bufferAmount.y;
+		if(regionEndLocation> imageSize.height)
+		{
+
+			overFlowAmount = imageSize.height- regionEndLocation;
+
+		}
+		paddedRegion.height = paddedRegion.height+bufferAmount.y + overFlowAmount;
+
+
+
+	}
+
+	//Regions: Padded and NonPadded Are now officially computed
+
+
+}
+ void visualSonificationTestRegionComputation(VisualSonificationInfo &info, VisualSonificationMultithreadInfo & multithreadInfo)
+ {
+	unsigned int colors[][3] = {{64,0,0},
+						{0,64,0},
+						{0,0,64},
+						{64,0,64},
+						{64,64,0},
+						{0,64,64},
+						{128,0,0},
+						{0,128,0},
+						{0,0,128},
+						{128,0,128},
+						{128,128,0},
+						{0,128,128},
+						{0,0,0} };
+		
+	namedWindow("Buffered Regions");
+	namedWindow("NonBuffered Regions");
+
+	namedWindow("Current Region");
+	namedWindow("Current Buffered Region");
+
+
+	Mat bufferRegions[VISUAL_SONIFICATION_NUMBER_OF_STATES];
+	
+
+	Mat nonbufferRegions[VISUAL_SONIFICATION_NUMBER_OF_STATES];
+	
+	
+
+
+	for(int i =0; i < VISUAL_SONIFICATION_NUMBER_OF_STATES; i++)
+	{
+		bufferRegions[i].create(info.data.frameSize,CV_8UC3);
+		bufferRegions[i].setTo(Scalar(colors[12][0],colors[12][1],colors[12][2]));
+
+		nonbufferRegions[i].create(info.data.frameSize,CV_8UC3);
+		nonbufferRegions[i].setTo(Scalar(colors[12][0],colors[12][1],colors[12][2]));
+	}
+	for(int i =0; i < VISUAL_SONIFICATION_NUMBER_OF_STATES; i++)
+	{
+		bufferRegions[i].setTo(Scalar(colors[12][0],colors[12][1],colors[12][2]));
+		nonbufferRegions[i].setTo(Scalar(colors[12][0],colors[12][1],colors[12][2]));
+
+
+		for(unsigned int j = 0; j< multithreadInfo.privateConfigs.size(); j++)
+		{
+			if(multithreadInfo.privateConfigs[j].regionOfInterest[i].width>0 &&multithreadInfo.privateConfigs[j].regionOfInterest[i].height >0)
+			{
+				Mat currentRegion;
+				Mat currentBufferedRegion;				
+	
+				currentRegion = nonbufferRegions[i](multithreadInfo.privateConfigs[j].regionOfInterest[i]);
+				currentBufferedRegion = bufferRegions[i](multithreadInfo.privateConfigs[j].bufferedRegionOfInterest[i]);
+				currentRegion = currentRegion+Scalar(colors[j][0],colors[j][1],colors[j][2]);
+				currentBufferedRegion = currentBufferedRegion+Scalar(colors[j][0],colors[j][1],colors[j][2]);
+
+				imshow("Buffered Regions",bufferRegions[i]);
+				imshow("NonBuffered Regions",nonbufferRegions[i]);				
+
+				imshow("Current Region", currentRegion);
+				imshow("Current Buffered Region",currentBufferedRegion);
+
+
+				cout << "Press Space for next region" << endl;
+				int key = waitKey(0) & 0xFF;
+				if(key == 27 || key ==' ')
+				{
+					cout << "Pressed" << endl;
+				}
+
+
+
+			}
+
+
+
+		}
+		cout << "Region Visual Complete" << endl;
+		int key = waitKey(0); 
+		if(key == 27 || key ==' ')
+		{
+			cout << "Pressed" << endl;
+		}
+
+
+	}
+	 
+ }
+
+
+
+
 void visualSonificationMultithreadInit(VisualSonificationInfo &info, VisualSonificationMultithreadInfo & multithreadInfo)
 {
+
+	if(!info.config.multithreaded)
+	{
+		return;
+	}
 	int totalNumberOfThreads = info.config.numberOfHorizontalThreads * info.config.numberOfVerticalThreads;
+
+
+	//Attribute for the threads
+	pthread_attr_t threadAttributes;
+	
+	
+	//Initialize the attribute struct
+	int ret = pthread_attr_init(&threadAttributes);
+
+	//Get the number of cores that are online
+	int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
+
+	//The core to pin to for the threads
+	int core_id;
+
+
+	//The cpu set used for setting affinity
+	cpu_set_t cpuset;
+
+
 	multithreadInfo.threadManagerPtr = new ThreadManager(totalNumberOfThreads);
 
 
@@ -3889,7 +4211,7 @@ void visualSonificationMultithreadInit(VisualSonificationInfo &info, VisualSonif
 	
 	for(int i =0; i < totalNumberOfThreads; i++)
 	{
-
+		//Setup the worker thread in struct with pointers to their data
 		multithreadInfo.workerThreadDataHolders[i].sharedInfoPtr = &info;
 		multithreadInfo.workerThreadDataHolders[i].sharedConfig = &info.config;
 		multithreadInfo.workerThreadDataHolders[i].sharedData = &info.data;
@@ -3904,17 +4226,93 @@ void visualSonificationMultithreadInit(VisualSonificationInfo &info, VisualSonif
 
 		multithreadInfo.workerThreadDataHolders[i].coordinator = ((i==0)?true: false);	
 	
-		
+		//Setup the private configs
+		multithreadInfo.privateConfigs[i].horizontalThreadId = i%info.config.numberOfHorizontalThreads;
+		multithreadInfo.privateConfigs[i].verticalThreadId = i/info.config.numberOfHorizontalThreads;		
+
+
+
+		//The rects and region buffers are based on the state
+		multithreadInfo.privateConfigs[i].regionBufferSize[VISUAL_SONIFICATION_STATE_INIT].x = 16;
+		multithreadInfo.privateConfigs[i].regionBufferSize[VISUAL_SONIFICATION_STATE_INIT].y = 16;
+		visualSonificationComputePaddedAndUnpaddedRects(multithreadInfo.privateConfigs[i].horizontalThreadId, multithreadInfo.privateConfigs[i].verticalThreadId, info.config.numberOfHorizontalThreads, info.config.numberOfVerticalThreads,info.data.frameSize, multithreadInfo.privateConfigs[i].regionBufferSize[VISUAL_SONIFICATION_STATE_INIT], multithreadInfo.privateConfigs[i].bufferedRegionOfInterest[VISUAL_SONIFICATION_STATE_INIT], multithreadInfo.privateConfigs[i].regionOfInterest[VISUAL_SONIFICATION_STATE_INIT]);
+
+
+
+		//Setup the private data
+		multithreadInfo.privateDatas[i].counter = 1337;
+
+
+
+		//Set the Specific Data Key pointer to me for now
+		multithreadInfo.threadManagerPtr->setStaticThreadThreadSpecificDataKeyPtrToMine();
+
+
+		//Get a pointer to the thread whose data we setup
+		Thread * currentThreadPtr = (multithreadInfo.threadManagerPtr->getThread(i));
+
+
+		//Set the threads data to this worker thread data holder
+		currentThreadPtr->setThreadData(&(multithreadInfo.workerThreadDataHolders[i]));
+
+
+		//Set the core id to put this on based on the number of cores
+		core_id= i % num_cores; 
+
+		//Zero out the structure
+		CPU_ZERO(&cpuset);
+
+		//Get the valid set of cores
+		CPU_SET(core_id, &cpuset);
+
+		//set the affinity in the pthread structures
+		ret = pthread_attr_setaffinity_np(&threadAttributes, sizeof(cpu_set_t), &cpuset);
+
+		//Check for an error
+		if(ret !=0)
+		{
+			cout << "Error setting core affinity: " << strerror(ret) << endl;			
+		}
+
+		//If this is the setup for this coordinator who is zero which is this thread do something a little different
+		if(i==0)
+		{
+			currentThreadPtr->setThreadId(pthread_self());
+
+			ret = pthread_setaffinity_np(currentThreadPtr->getThreadId(), sizeof(cpu_set_t), &cpuset);
+
+			if(ret !=0)
+			{
+				cout << "Error setting core affinity: " << strerror(ret) << endl;			
+			}
+			
+			multithreadInfo.threadManagerPtr->setupThreadWithoutLaunch(i, true);	
+			
+		}
+		else
+		{
+			multithreadInfo.threadManagerPtr->launchThread(i,visualSonificationMainThread, &threadAttributes, true);			
+			
+			
+		}
+
+
 		
 	}
 	
 	//workerThreadInfos = new vector<GeneralWorkerThreadDataHolder>(totalNumberOfThreads);
 	
 	
-	
-	
+#ifdef VERBOSE_OUTPUT	
+	visualSonificationTestRegionComputation(info, multithreadInfo);
+#endif
 	return;
 }
+
+
+
+
+
 
 void visualSonificationMultithreadCleanup(VisualSonificationInfo &info, VisualSonificationMultithreadInfo & multithreadInfo)
 {
@@ -4152,18 +4550,30 @@ void handleKey(int key, bool & done, VisualSonificationInfo & info)
 	lastKey = key;
 }
 
-void * visualSonificationMainThread(void *)
+void * visualSonificationMainThread(void * param)
 {
-	
-	
+	Thread * thisThread = reinterpret_cast<Thread *> (param);
+
+	GeneralWorkerThreadDataHolder * workerThreadDataHolder  = reinterpret_cast<GeneralWorkerThreadDataHolder * > (thisThread->getThreadData());
+	VisualSonificationInfo * visualSonificationInfoPtr = reinterpret_cast<VisualSonificationInfo *> (workerThreadDataHolder->sharedInfoPtr);
+
+
+	VisualSonificationStatePrivateConfig * visualSonificationStatePrivateConfig = reinterpret_cast<VisualSonificationStatePrivateConfig *> (workerThreadDataHolder->privateConfig);
+	VisualSonificationStatePrivateData * visualSonificationStatePrivateData = reinterpret_cast<VisualSonificationStatePrivateData* > (workerThreadDataHolder->privateData);
+
+
+
+	cout << "Thread done:" <<  thisThread->getThreadLogicalId() <<endl;
 	
 	
 	return NULL;
 }
 
 
-int visualSonificationMainLoop(VisualSonificationInfo &visualSonificationInfo)
+int visualSonificationMainLoop(VisualSonificationInfo &visualSonificationInfo, Thread * thisThread)
 {
+
+	VisualSonificationMultithreadInfo visualSonificationMultithreadInfo;
 	//flag for when done and the key variable
 	bool done = false;
 	bool lastIteration = false;
@@ -4195,6 +4605,13 @@ int visualSonificationMainLoop(VisualSonificationInfo &visualSonificationInfo)
 				
 				//Call the init state handler
 				visualSonificationInit(visualSonificationInfo);
+				
+				visualSonificationMultithreadInit(visualSonificationInfo, visualSonificationMultithreadInfo);
+				if(thisThread ==NULL && visualSonificationInfo.config.multithreaded)
+				{
+					thisThread = visualSonificationMultithreadInfo.threadManagerPtr->getThread(0);
+				}
+
 
 				//Timing
 				getEndClockTime(TIMING_EVENT_INIT);
@@ -4476,6 +4893,10 @@ int visualSonificationMainLoop(VisualSonificationInfo &visualSonificationInfo)
 		//Call the key handler
 		handleKey(key, done,visualSonificationInfo);
 	}
+	if(thisThread !=NULL && visualSonificationInfo.config.multithreaded)
+	{
+		cout << "*Thread Done:" << thisThread->getThreadLogicalId()<< endl;
+	}
 	
 	
 	
@@ -4501,6 +4922,9 @@ int main(int argc, char * argv[])
 	//General State information
 	VisualSonificationInfo visualSonificationInfo;
 
+	VisualSonificationMultithreadInfo visualSonificationMultithreadInfo;
+
+
 	//Pointer to allow the mouse to get data
 	VisualSonificationInfo * infoForMouse;
 
@@ -4523,6 +4947,10 @@ int main(int argc, char * argv[])
 	bool lastIteration = false;
 	int key = -1;
 
+	//The thread pointer for multithread
+	Thread * thisThread = NULL;
+	
+
 	//This loop allows activation of debugging information and windows before running starts
 	cout << "Press debug keys to activate various windows" << endl;
 	while(!done && visualSonificationInfo.config.pauseForSetupAtStart)
@@ -4534,7 +4962,7 @@ int main(int argc, char * argv[])
 
 	}
 #ifndef USE_OLD_MAIN_LOOP
-	visualSonificationMainLoop(visualSonificationInfo);
+	visualSonificationMainLoop(visualSonificationInfo,thisThread);
 
 #else
 	//Reset the done flag
@@ -5344,7 +5772,7 @@ void VisualSonification::initSonificationProcessing()
 	parseParamsVector(commandArgs,visualSonificationInfo);
 
 	visualSonificationInit(visualSonificationInfo);
-	
+	visualSonificationMultithreadInit(visualSonificationInfo, visualSonificationMultithreadInfo);
 
 
 }
@@ -5369,7 +5797,7 @@ void VisualSonification::initSonificationProcessing(vector<string> commandArgs)
 	parseParamsVector(commandArgs,visualSonificationInfo);
 
 	visualSonificationInit(visualSonificationInfo);
-	
+	visualSonificationMultithreadInit(visualSonificationInfo, visualSonificationMultithreadInfo);	
 
 
 }

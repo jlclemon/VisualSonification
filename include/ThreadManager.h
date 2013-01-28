@@ -375,6 +375,7 @@ public:
 
 	//Thread * myThread;
 	ThreadManager * threadManager;
+
 	int numberOfHorizontalThreads;
 	int numberOfVerticalThreads;
 

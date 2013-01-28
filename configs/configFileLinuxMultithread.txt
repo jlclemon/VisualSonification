@@ -154,7 +154,9 @@ harmonics_piano
 
 -showComponentRegionsAtAudioOutput
 
+-NumHoriThreads
+3
 
-
-
+-NumVertThreads
+3
 

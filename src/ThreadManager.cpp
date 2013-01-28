@@ -1,6 +1,10 @@
 #include "ThreadManager.h"
 #include <iostream>
 #include <cstring>
+#include <sched.h>
+#include <unistd.h>
+
+
 //**********************************************************************
 //
 //	ThreadManager.cpp

@@ -130,15 +130,15 @@ void vuPrintTimingInformationToConsole()
 	clock_t totalExecutionTime = 0; 
 	clock_t currentExecutionTime = 0; 
 	printf("Timing Information for run through:\n");
-	printf("Clocks Per second: %d \n", CLOCKS_PER_SEC);
+	printf("Clocks Per second: %ld \n", CLOCKS_PER_SEC);
 
 	for(i = 0; i < NUMBER_OF_TIMING_EVENTS; i++)
 	{
 		currentExecutionTime = timingArray[i].end- timingArray[i].start;
-		printf("%s : %d Clocks\n", timingElementNames[i].c_str(),currentExecutionTime);
+		printf("%s : %ld Clocks\n", timingElementNames[i].c_str(),currentExecutionTime);
 		totalExecutionTime += currentExecutionTime;
 	}
-	printf("\nTotal Work Time: %d\n", totalExecutionTime);
+	printf("\nTotal Work Time: %ld\n", totalExecutionTime);
 }
 
 void vuPrintTimingInformationToFile()
@@ -159,15 +159,15 @@ void vuPrintTimingInformationToFile()
 		return;
 	}
 	fprintf(outputFile,"Timing Information for run through:\n");
-	fprintf(outputFile,"Clocks Per second:, %d \n", CLOCKS_PER_SEC);
+	fprintf(outputFile,"Clocks Per second:, %ld \n", CLOCKS_PER_SEC);
 
 	for(i = 0; i < NUMBER_OF_TIMING_EVENTS; i++)
 	{
 		currentExecutionTime = timingArray[i].end- timingArray[i].start;
-		fprintf(outputFile,"%s,%d, Clocks\n", timingElementNames[i].c_str(),currentExecutionTime);
+		fprintf(outputFile,"%s,%ld, Clocks\n", timingElementNames[i].c_str(),currentExecutionTime);
 		totalExecutionTime += currentExecutionTime;
 	}
-	fprintf(outputFile,"\nTotal Work Time,%d\n", totalExecutionTime);
+	fprintf(outputFile,"\nTotal Work Time,%ld\n", totalExecutionTime);
 	fclose(outputFile);
 
 
